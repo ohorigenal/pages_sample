@@ -89,6 +89,8 @@ export default class Game extends Phaser.Scene{
         this.carrotsCollectedText = this.add.text(240, 10, 'Carrots: 0', style).setScrollFactor(0).setOrigin(0.5, 0)
         // this.add.image(240,320,'platform').setScale(0.5)
         // this.physics.add.image(240,320,'platform').setScale(0.5)
+
+
     }
 
     update() {
@@ -107,6 +109,20 @@ export default class Game extends Phaser.Scene{
             }
 
         })
+
+
+        const pointer = this.input.activePointer
+        let flag = true
+
+        if(pointer.isDown) {
+            const touchX = pointer.x
+            if(touchX < this.scale.width/2){
+                this.player.setVelocityX(-200)
+            } else {
+                this.player.setVelocityX(200)
+            }
+            flag = false
+        }
 
         const touchingDown = this.player.body.touching.down
 
@@ -127,7 +143,7 @@ export default class Game extends Phaser.Scene{
             this.player.setVelocityX(-200)
         } else if(this.cursors.right.isDown && !touchingDown) {
             this.player.setVelocityX(200)
-        } else {
+        } else if(flag) {
             this.player.setVelocityX(0)
         }
 

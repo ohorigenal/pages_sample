@@ -21,5 +21,6 @@ export default new Phaser.Game({
             },
             debug: true
         }
-    }
+    },
+    autoCenter: true
 })
